@@ -2,107 +2,121 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
- 
-  body {
+}
+
+body {
     font-family: "Poppins", sans-serif;
-  }
- 
-  header {
+}
+
+header {
     background-color: #424e61;
     color: white;
     width: 100%;
     padding: 20px;
-  }
- 
-  .cabecalho-itens {
+}
+
+.cabecalho-itens {
     max-width: 1980px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-  }
- 
-  .cabecalho-imagem {
-    width: 6%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
- 
-  .titulo_site {
-    padding: 50px;
+    justify-content: space-between;
+}
+
+.cabecalho_imagem {
+    width: 8%;
+}
+
+.titulo_site {
+    padding: 0 50px;
     text-align: center;
     width: 50%;
     font-size: 30px;
-  }
- 
-  .sociais {
+    cursor: pointer;
+}
+
+.sociais {
     display: flex;
     justify-content: flex-end;
     width: 25%;
-    padding-right: 30px;
-  }
- 
-  .banner1 {
+    gap: 15px;
+}
+
+.sociais img {
+    width: 40px; /* Tamanho padrão para os ícones sociais */
+    height: 40px;
+}
+
+.banner1 {
     display: flex;
     justify-content: center;
-  }
- 
-  .estudante_titulo {
+    padding: 20px 0;
+}
+
+.estudante_titulo {
     padding: 50px;
     text-align: center;
-  }
- 
-  .estudante-nome {
+    font-size: 24px;
+}
+
+.estudante-nome {
     text-align: center;
-  }
- 
-  .estudante-imagem {
+    font-size: 18px;
+}
+
+.estudante-imagem {
     width: 120px;
-  }
- 
-  .estudante-icone {
+    border-radius: 50%;
+}
+
+.estudante-icone {
     width: 38px;
+    height: 38px;
     padding: 4px 8px;
-  }
- 
-  .estudante {
+    margin: 5px;
+}
+
+.estudante {
     background-color: #00b81f;
     padding: 24px 0;
     text-align: center;
-  }
- 
-  .estudante-div {
+}
+
+.estudante-div {
     text-align: center;
     padding: 24px 0;
-  }
- 
-  .estudantes_todos {
+}
+
+.estudantes_todos {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-  }
- 
-  .escola {
+}
+
+.escola {
     background-image: linear-gradient(#40A2E3, #297bb3);
     color: white;
     padding: 24px 0;
     text-align: center;
-  }
- 
-  .escola-titulo {
+}
+
+.escola-titulo {
     padding: 50px;
     text-align: center;
-  }
- 
-  .logo_rodape {
+}
+
+.logo_rodape {
     height: 80px;
     padding: 12px 0;
-  }
- 
-  .link {
+}
+
+.link {
     color: #ffffff;
     text-decoration: none;
-  }
- 
+    font-weight: bold;
+    padding: 5px;
+}
+
+.link:hover {
+    color: #f0f0f0;
+}
