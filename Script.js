@@ -30,10 +30,6 @@ const iconesEstudante = document.querySelectorAll('.estudante-icone');
 
 iconesEstudante.forEach(icone => {
     icone.addEventListener('click', (evento) => {
-        // Previne a ação padrão (se for um link <a>) para que possamos interceptar.
-        // Vou comentar esta linha para não quebrar a navegação dos seus links <a> originais.
-        // evento.preventDefault();
-
         // Encontra o nome do aluno pai deste ícone
         const estudanteDiv = icone.closest('.estudante-div');
         const nomeAluno = estudanteDiv ? estudanteDiv.querySelector('.estudante-nome').textContent : 'Aluno Desconhecido';
@@ -55,3 +51,41 @@ if (linkContato) {
         console.log("Usuário visualizando o número de contato do WhatsApp.");
     });
 }
+
+
+// ===============================================
+// 5. NOVA FUNCIONALIDADE: Animação das Imagens dos Estudantes (Fade-in ao aparecer)
+// ===============================================
+
+// Adiciona uma classe CSS inicial para esconder as imagens
+const imagensEstudante = document.querySelectorAll('.estudante-imagem');
+
+// Para que esta função funcione, você precisará adicionar um CSS simples.
+// Veja o bloco de CSS necessário abaixo.
+
+const observerOptions = {
+    root: null, // viewport
+    rootMargin: '0px',
+    threshold: 0.1 // 10% da imagem visível
+};
+
+const observerCallback = (entries, observer) => {
+    entries.forEach(entry => {
+        // Se a imagem estiver na viewport
+        if (entry.isIntersecting) {
+            // Adiciona a classe que faz o fade-in
+            entry.target.classList.add('fade-in-visible');
+            // Para de observar, pois a animação já ocorreu
+            observer.unobserve(entry.target);
+        }
+    });
+};
+
+const imageObserver = new IntersectionObserver(observerCallback, observerOptions);
+
+imagensEstudante.forEach(imagem => {
+    // 1. Adiciona a classe inicial 'fade-in-hidden' a todas as imagens
+    imagem.classList.add('fade-in-hidden');
+    // 2. Começa a observação
+    imageObserver.observe(imagem);
+});
