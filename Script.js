@@ -11,16 +11,16 @@ console.log("script.js carregado com sucesso! A página está pronta para intera
 const tituloSite = document.querySelector('.titulo_site');
 
 if (tituloSite) {
-    tituloSite.addEventListener('mouseover', () => {
-        // Altera o cursor para indicar que é interativo
-        tituloSite.style.cursor = 'pointer';
-        // Simplesmente registra a ação no console. Não altera o CSS (modelo) permanentemente.
-        console.log("Mouse sobre o Título: Nossa Escola");
-    });
+    tituloSite.addEventListener('mouseover', () => {
+        // Altera o cursor para indicar que é interativo
+        tituloSite.style.cursor = 'pointer';
+        // Simplesmente registra a ação no console. Não altera o CSS (modelo) permanentemente.
+        console.log("Mouse sobre o Título: Nossa Escola");
+    });
 
-    tituloSite.addEventListener('click', () => {
-        alert("Bem-vindo(a) à Nossa Escola!");
-    });
+    tituloSite.addEventListener('click', () => {
+        alert("Bem-vindo(a) à Nossa Escola!");
+    });
 }
 
 
@@ -29,16 +29,16 @@ if (tituloSite) {
 const iconesEstudante = document.querySelectorAll('.estudante-icone');
 
 iconesEstudante.forEach(icone => {
-    icone.addEventListener('click', (evento) => {
-        // Encontra o nome do aluno pai deste ícone
-        const estudanteDiv = icone.closest('.estudante-div');
-        const nomeAluno = estudanteDiv ? estudanteDiv.querySelector('.estudante-nome').textContent : 'Aluno Desconhecido';
-        
-        // Encontra o tipo de ícone clicado (Whatsapp, Instagram, Facebook)
-        const altTexto = icone.getAttribute('alt');
+    icone.addEventListener('click', (evento) => {
+        // Encontra o nome do aluno pai deste ícone
+        const estudanteDiv = icone.closest('.estudante-div');
+        const nomeAluno = estudanteDiv ? estudanteDiv.querySelector('.estudante-nome').textContent : 'Aluno Desconhecido';
+        
+        // Encontra o tipo de ícone clicado (Whatsapp, Instagram, Facebook)
+        const altTexto = icone.getAttribute('alt');
 
-        console.log(`Ícone clicado: "${altTexto}" para o(a) ${nomeAluno}.`);
-    });
+        console.log(`Ícone clicado: "${altTexto}" para o(a) ${nomeAluno}.`);
+    });
 });
 
 
@@ -47,27 +47,35 @@ iconesEstudante.forEach(icone => {
 const linkContato = document.querySelector('.escola-título .link');
 
 if (linkContato) {
-    linkContato.addEventListener('mouseenter', () => {
-        console.log("Usuário visualizando o número de contato do WhatsApp.");
-    });
+    linkContato.addEventListener('mouseenter', () => {
+        console.log("Usuário visualizando o número de contato do WhatsApp.");
+    });
 }
 
+
 // ===============================================
-// 5. NOVA FUNCIONALIDADE: Efeito de Foco no Card do Aluno
-// Adiciona/remove uma classe CSS ao passar o mouse para dar destaque visual.
+// 5. NOVO COMANDO: Validação e Alerta de Estudantes (Executa ao carregar a página)
+// Verifica se o número total de alunos atende a um requisito mínimo e, se não, 
+// aplica uma classe de alerta nos cards.
 // ===============================================
 
-const cardsEstudante = document.querySelectorAll('.estudante-div');
+const todosEstudantesDivs = document.querySelectorAll('.estudante-div');
+const minimoEsperado = 15; // Defina um mínimo (seus alunos são 12. Mude para 5 para testar o alerta).
+const totalEstudantes = todosEstudantesDivs.length;
 
-cardsEstudante.forEach(card => {
-    // Adiciona a classe 'estudante-focado' quando o mouse entra
-    card.addEventListener('mouseenter', () => {
-        card.classList.add('estudante-focado');
-        console.log(`Foco no card do aluno: ${card.querySelector('.estudante-nome').textContent}`);
+if (totalEstudantes < minimoEsperado) {
+    console.warn(`[ALERTA JS] O número de alunos em destaque (${totalEstudantes}) é menor que o mínimo esperado (${minimoEsperado}).`);
+    
+    // Aplica a classe de alerta em todos os cards
+    todosEstudantesDivs.forEach(div => {
+        div.classList.add('alerta-div-estudante');
     });
 
-    // Remove a classe 'estudante-focado' quando o mouse sai
-    card.addEventListener('mouseleave', () => {
-        card.classList.remove('estudante-focado');
-    });
-});
+    // Opcional: Adiciona um texto de alerta visual
+    const tituloSecao = document.querySelector('.estudante_titulo');
+    if (tituloSecao) {
+        tituloSecao.textContent += ' (REVISAR LISTA: INCOMPLETA!)';
+    }
+} else {
+    console.log(`[JS INFO] Número de alunos em destaque (${totalEstudantes}) OK.`);
+}
