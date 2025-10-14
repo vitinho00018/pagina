@@ -52,40 +52,22 @@ if (linkContato) {
     });
 }
 
-
 // ===============================================
-// 5. NOVA FUNCIONALIDADE: Animação das Imagens dos Estudantes (Fade-in ao aparecer)
+// 5. NOVA FUNCIONALIDADE: Efeito de Foco no Card do Aluno
+// Adiciona/remove uma classe CSS ao passar o mouse para dar destaque visual.
 // ===============================================
 
-// Adiciona uma classe CSS inicial para esconder as imagens
-const imagensEstudante = document.querySelectorAll('.estudante-imagem');
+const cardsEstudante = document.querySelectorAll('.estudante-div');
 
-// Para que esta função funcione, você precisará adicionar um CSS simples.
-// Veja o bloco de CSS necessário abaixo.
-
-const observerOptions = {
-    root: null, // viewport
-    rootMargin: '0px',
-    threshold: 0.1 // 10% da imagem visível
-};
-
-const observerCallback = (entries, observer) => {
-    entries.forEach(entry => {
-        // Se a imagem estiver na viewport
-        if (entry.isIntersecting) {
-            // Adiciona a classe que faz o fade-in
-            entry.target.classList.add('fade-in-visible');
-            // Para de observar, pois a animação já ocorreu
-            observer.unobserve(entry.target);
-        }
+cardsEstudante.forEach(card => {
+    // Adiciona a classe 'estudante-focado' quando o mouse entra
+    card.addEventListener('mouseenter', () => {
+        card.classList.add('estudante-focado');
+        console.log(`Foco no card do aluno: ${card.querySelector('.estudante-nome').textContent}`);
     });
-};
 
-const imageObserver = new IntersectionObserver(observerCallback, observerOptions);
-
-imagensEstudante.forEach(imagem => {
-    // 1. Adiciona a classe inicial 'fade-in-hidden' a todas as imagens
-    imagem.classList.add('fade-in-hidden');
-    // 2. Começa a observação
-    imageObserver.observe(imagem);
+    // Remove a classe 'estudante-focado' quando o mouse sai
+    card.addEventListener('mouseleave', () => {
+        card.classList.remove('estudante-focado');
+    });
 });
