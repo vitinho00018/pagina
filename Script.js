@@ -33,8 +33,8 @@ if (loginForm && loginScreen && mainContent && usernameInput && passwordInput) {
         const password = passwordInput.value.trim();
         
         // **Credenciais de Teste:**
-        const USER_CORRETO = "victor";
-        const SENHA_CORRETA = "2280";
+        const USER_CORRETO = "up29";
+        const SENHA_CORRETA = "0405";
         
         // Simulação de verificação
         if (username === USER_CORRETO && password === SENHA_CORRETA) {
