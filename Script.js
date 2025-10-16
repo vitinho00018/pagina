@@ -29,8 +29,8 @@ if (loginForm && loginScreen && mainContent) {
         const passwordInput = document.getElementById('password').value.trim();
        
         // **Credenciais de Teste:**
-        const USER_CORRETO = "Mozer";
-        const SENHA_CORRETA = "12345";
+        const USER_CORRETO = "victor";
+        const SENHA_CORRETA = "2280";
        
         // Simulação de verificação
         if (usernameInput === USER_CORRETO && passwordInput === SENHA_CORRETA) {
@@ -48,7 +48,7 @@ if (loginForm && loginScreen && mainContent) {
            
         } else {
             // Login Falhou
-            loginMessage.textContent = "Usuário ou senha incorretos.";
+            loginMessage.textContent = "Usuário ou senha incorreto.";
         }
     });
    
