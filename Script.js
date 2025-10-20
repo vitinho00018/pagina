@@ -27,6 +27,7 @@ const USER_CORRETO_LOWER = "up29";
 const SENHA_CORRETA = "0405";
 
 // Verifica se todos os elementos cruciais estão presentes antes de adicionar o listener
+// Adicionamos 'loginMessage' para maior robustez.
 if (loginForm && loginScreen && mainContent && usernameInput && passwordInput && loginMessage) {
     
     // Adiciona o ouvinte de evento para o envio do formulário
@@ -38,8 +39,7 @@ if (loginForm && loginScreen && mainContent && usernameInput && passwordInput &&
         const password = passwordInput.value.trim();
         
         // **CORREÇÃO/MELHORIA PRINCIPAL:**
-        // 1. Converte o username digitado para minúsculo antes de comparar. 
-        //    Isso resolve o problema de o login falhar se o usuário digitar "Up29" ou "UP29".
+        // 1. Converte o username digitado para minúsculo antes de comparar (Comparação Case-Insensitive).
         const usernameParaComparacao = username.toLowerCase();
         
         // Simulação de verificação
@@ -54,7 +54,6 @@ if (loginForm && loginScreen && mainContent && usernameInput && passwordInput &&
             mainContent.classList.remove('hidden-content');
             
             // 3. Executa a saudação personalizada no título da página
-            // Passamos o username ORIGINAL (sem lowerCase) para que a saudação fique correta (ex: "Up29").
             saudarVisitante(username);
             
         } else {
@@ -66,3 +65,14 @@ if (loginForm && loginScreen && mainContent && usernameInput && passwordInput &&
     });
     
     // MELHORIA: Adiciona listeners para limpar a mensagem de erro ao focar
+    usernameInput.addEventListener('focus', () => {
+        loginMessage.textContent = '';
+    });
+    passwordInput.addEventListener('focus', () => {
+        loginMessage.textContent = '';
+    });
+    
+} else {
+    // Caso algum ID esteja faltando no HTML (para segurança)
+    console.error("Erro: Um ou mais IDs de login ou conteúdo principal (incluindo inputs) não foram encontrados. Verifique seu HTML.");
+}
