@@ -13,31 +13,37 @@ const passwordInput = document.getElementById('password'); // Seleciona o campo 
 // --- Função de Saudação (Modificada para ser chamada após o login) ---
 function saudarVisitante(username) {
     if (tituloPrincipal) {
-        // Assegura que o nome de usuário começa com letra maiúscula (melhor UX)
-        const usernameCapitalized = username.charAt(0).toUpperCase() + username.slice(1);
+        // Garantimos que apenas o primeiro caractere é maiúsculo, e o resto minúsculo (Melhor UX).
+        const trimmedUsername = username.trim(); 
+        const usernameCapitalized = trimmedUsername.charAt(0).toUpperCase() + trimmedUsername.slice(1).toLowerCase();
         tituloPrincipal.textContent = `Seja Bem-vindo(a), ${usernameCapitalized}!`;
     }
 }
 
 
 // --- Lógica Principal de Login ---
+// Define as credenciais de teste (username em minúsculo para facilitar a comparação)
+const USER_CORRETO_LOWER = "up29";
+const SENHA_CORRETA = "0405";
+
 // Verifica se todos os elementos cruciais estão presentes antes de adicionar o listener
-if (loginForm && loginScreen && mainContent && usernameInput && passwordInput) {
+if (loginForm && loginScreen && mainContent && usernameInput && passwordInput && loginMessage) {
     
     // Adiciona o ouvinte de evento para o envio do formulário
     loginForm.addEventListener('submit', function(event) {
         event.preventDefault(); // Impede que o formulário recarregue a página
         
-        // Pega os valores dos campos
+        // Pega os valores dos campos e remove espaços extras
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
         
-        // **Credenciais de Teste:**
-        const USER_CORRETO = "up29";
-        const SENHA_CORRETA = "0405";
+        // **CORREÇÃO/MELHORIA PRINCIPAL:**
+        // 1. Converte o username digitado para minúsculo antes de comparar. 
+        //    Isso resolve o problema de o login falhar se o usuário digitar "Up29" ou "UP29".
+        const usernameParaComparacao = username.toLowerCase();
         
         // Simulação de verificação
-        if (username === USER_CORRETO && password === SENHA_CORRETA) {
+        if (usernameParaComparacao === USER_CORRETO_LOWER && password === SENHA_CORRETA) {
             
             // Login Bem-Sucedido
             
@@ -48,25 +54,15 @@ if (loginForm && loginScreen && mainContent && usernameInput && passwordInput) {
             mainContent.classList.remove('hidden-content');
             
             // 3. Executa a saudação personalizada no título da página
+            // Passamos o username ORIGINAL (sem lowerCase) para que a saudação fique correta (ex: "Up29").
             saudarVisitante(username);
             
         } else {
             // Login Falhou
             loginMessage.textContent = "Usuário ou senha incorreto.";
-            // (Opcional) Limpa os campos para nova tentativa
+            // Limpa o campo de senha para nova tentativa
             passwordInput.value = '';
         }
     });
     
     // MELHORIA: Adiciona listeners para limpar a mensagem de erro ao focar
-    usernameInput.addEventListener('focus', () => {
-        loginMessage.textContent = '';
-    });
-    passwordInput.addEventListener('focus', () => {
-        loginMessage.textContent = '';
-    });
-    
-} else {
-    // Caso algum ID esteja faltando no HTML (para segurança)
-    console.error("Erro: Um ou mais IDs de login ou conteúdo principal (incluindo inputs) não foram encontrados. Verifique seu HTML.");
-}
